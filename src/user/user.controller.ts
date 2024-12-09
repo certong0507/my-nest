@@ -12,7 +12,7 @@ export class UserController {
   constructor(private userService: UserService) {}
 
   @Get()
-  async getCompanyDetail(@Query() companyDetailQuery: { id: string }) {
+  async getUser(@Query() companyDetailQuery: { id: string }) {
     try {
       return await this.userService.getUser(companyDetailQuery);
     } catch (error) {
