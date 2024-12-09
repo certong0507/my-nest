@@ -12,9 +12,9 @@ export class UserController {
   constructor(private userService: UserService) {}
 
   @Get()
-  async getUser(@Query() companyDetailQuery: { id: string }) {
+  async getUser(@Query() payload: { id?: number; email?: string }) {
     try {
-      return await this.userService.getUser(companyDetailQuery);
+      return await this.userService.getUser(payload);
     } catch (error) {
       throw new BadRequestException(error);
     }

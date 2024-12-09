@@ -12,7 +12,7 @@ export class AuthService {
   ) {}
 
   async login(payload: { email: string; password: string }): Promise<any> {
-    const user = await this.userService.getUser(payload.email);
+    const user = await this.userService.getUser({ email: payload.email });
     if (user?.password !== payload.password) {
       throw new UnauthorizedException();
     }
@@ -36,7 +36,12 @@ export class AuthService {
 
     console.log(' ----- [register]', hash);
 
-    const newUser = await this.userService.createUser(payload);
+    const newUserId = await this.userService.createUser({
+      ...payload,
+      passwordHash: hash,
+    });
+
+    const newUser = await this.userService.getUser({ id: newUserId });
 
     return {
       newUser,
